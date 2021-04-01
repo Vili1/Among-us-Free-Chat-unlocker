@@ -69,8 +69,8 @@ int main()
 
     char moduleName[] = "GameAssembly.dll";
     DWORD gameBaseAddress = dwGetModuleBaseAddress(_T(moduleName), pID);
-    DWORD offsetGameToBaseAddress = 0x028A7110;
-    std::vector<DWORD> pointsOffsets{0xEEC};
+    DWORD offsetGameToBaseAddress = 0x028A83D4;
+    std::vector<DWORD> pointsOffsets{0x5C, 0x2C};
     DWORD baseAddress;
 
     ReadProcessMemory(processHandle, (LPVOID)(gameBaseAddress + offsetGameToBaseAddress), &baseAddress, sizeof(baseAddress), NULL);
@@ -87,20 +87,15 @@ int main()
 
     //"UI"
     std::cout << "Free Chat Unlocker by Vili " << std::endl;
-    std::cout << "If the chat is still locked press T to reload the chat and rejoin the room" << std::endl;
     std::cout << "---------------------------------------------------------------------------" << std::endl;
     int chatValue = 1;
     
     while (true)
     {
-        Sleep(100);
+        Sleep(1000);
 
         WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &chatValue, sizeof(int), 0);
-
-        if (GetAsyncKeyState(0x54)) // T reload
-        {
-            goto reload;
-        }
+        goto reload;
 
     }
 
