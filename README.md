@@ -6,4 +6,5 @@ Among us external chat unlocker written in c++
 ```
 - [Download](https://github.com/Vili1/Among-us-Free-Chat-unlocker/releases/)
 - [Youtube Video](https://youtu.be/K7Pa2PbEvzY)
+- [Youtube Video Update](https://youtu.be/Nor549tiOT4)
 
