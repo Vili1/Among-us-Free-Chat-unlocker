@@ -89,14 +89,10 @@ int main()
     std::cout << "Free Chat Unlocker by Vili " << std::endl;
     std::cout << "---------------------------------------------------------------------------" << std::endl;
     int chatValue = 1;
-    
-    while (true)
-    {
-        Sleep(1000);
 
-        WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &chatValue, sizeof(int), 0);
-        goto reload;
-
-    }
+    //memory write 
+    WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &chatValue, sizeof(int), 0);
+    Sleep(1000);
+    goto reload;
 
 }
