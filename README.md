@@ -1,7 +1,6 @@
 # Among us external chat unlocker
 Among us external chat unlocker written in c++
-![image](https://user-images.githubusercontent.com/42891941/122292435-aaf30380-cefe-11eb-85f6-c1abf785bca6.png)
-
+![image](https://user-images.githubusercontent.com/42891941/122292720-f3122600-cefe-11eb-9e53-ba6b77f86294.png)
 ### Build flags for gcc
 ```bash 
 -O2 -s -static-libstdc++ -static-libgcc
