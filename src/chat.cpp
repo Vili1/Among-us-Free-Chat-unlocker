@@ -40,8 +40,8 @@ int main()
         std::cout << "Among Us found successfully!" << std::endl;
         std::cout << "---------------------------------------------------------------------------" << std::endl;
         std::cout << "Please select the version of your game and then press Enter!" << std::endl;
-        std::cout << "1 - Steam" << std::endl;
-        std::cout << "2 - Epic Games" << std::endl;
+        std::cout << "1 - Steam - v2021.6.30s" << std::endl;
+        std::cout << "2 - Epic Games - v2021.6.30e" << std::endl;
         std::cin >> vSelect;
 
        if (vSelect <= 0)
@@ -79,7 +79,6 @@ int main()
         goto reload;
     }
 
-
     while(true)
     {
      Steam:
@@ -90,7 +89,6 @@ int main()
      {
         std::cout << "Among Us found successfully!" << std::endl;
         std::cout << "---------------------------------------------------------------------------" << std::endl;
-
      }
      else
      {
@@ -122,7 +120,7 @@ int main()
 
      char moduleName[] = "GameAssembly.dll";
      DWORD gameBaseAddress = dwGetModuleBaseAddress(_T(moduleName), pID);
-     DWORD offsetGameToBaseAddress = 0x01D22F60;
+     DWORD offsetGameToBaseAddress = 0x01BB2D8C;
      std::vector<DWORD> pointsOffsets{0x5C,0x2C};
      DWORD baseAddress;
 
@@ -143,9 +141,9 @@ int main()
      std::cout << "---------------------------------------------------------------------------" << std::endl;
      std::cout << "If the Program doesn't work Press Delete to reload it!" << std::endl;
      if (GetAsyncKeyState(VK_DELETE))
-        {
-            goto reload;
-        }
+     {
+       goto reload;
+     }
 
      int chatValue = 1;
 
@@ -199,7 +197,7 @@ int main()
 
      char moduleName[] = "GameAssembly.dll";
      DWORD gameBaseAddress = dwGetModuleBaseAddress(_T(moduleName), pID);
-     DWORD offsetGameToBaseAddress = 0x01B6714C;
+     DWORD offsetGameToBaseAddress = 0x01C13754;
      std::vector<DWORD> pointsOffsets{0x5C,0x2C};
      DWORD baseAddress;
 
@@ -220,9 +218,9 @@ int main()
      std::cout << "---------------------------------------------------------------------------" << std::endl;
      std::cout << "If the Program doesn't work Press Delete to reload it!" << std::endl;
      if (GetAsyncKeyState(VK_DELETE))
-        {
-            goto reload;
-        }
+     {
+       goto reload;
+     }
 
      int chatValue = 1;
 
