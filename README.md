@@ -4,7 +4,7 @@ Among us external chat unlocker written in c++
 - [Donate on paypal](https://www.paypal.com/donate?hosted_button_id=PTRYHABP7FHGN)
 - [Support me on patreon :v](https://www.patreon.com/Vili69)
 
-![image](https://user-images.githubusercontent.com/42891941/122292720-f3122600-cefe-11eb-9e53-ba6b77f86294.png)
+![image](https://user-images.githubusercontent.com/42891941/125162903-1729f580-e193-11eb-9564-678d63b7ad2c.png)
 ### Build flags for gcc
 ```bash 
 -O2 -s -static-libstdc++ -static-libgcc
