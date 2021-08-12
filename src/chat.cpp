@@ -41,7 +41,7 @@ int main()
         std::cout << "---------------------------------------------------------------------------" << std::endl;
         std::cout << "Please select the version of your game and then press Enter!" << std::endl;
         std::cout << "1 - Steam - v2021.6.30s" << std::endl;
-        std::cout << "2 - Epic Games - v2021.6.30e" << std::endl;
+        std::cout << "2 - Epic Games - v2021.7.20e" << std::endl;
         std::cin >> vSelect;
 
        if (vSelect <= 0)
@@ -197,7 +197,7 @@ int main()
 
      char moduleName[] = "GameAssembly.dll";
      DWORD gameBaseAddress = dwGetModuleBaseAddress(_T(moduleName), pID);
-     DWORD offsetGameToBaseAddress = 0x01C13754;
+     DWORD offsetGameToBaseAddress = 0x01C71C08;
      std::vector<DWORD> pointsOffsets{0x5C,0x2C};
      DWORD baseAddress;
 
