@@ -4,6 +4,7 @@ Among us external chat unlocker written in c++
 - [Donate on paypal](https://www.paypal.com/donate?hosted_button_id=PTRYHABP7FHGN)
 - [Support me on patreon :v](https://www.patreon.com/Vili69)
 - [Download](https://github.com/Vili1/Among-us-Free-Chat-unlocker/releases/)
+- [How to compile from source Video](https://youtu.be/Xg9KLTM688c)
 - [Youtube Video](https://youtu.be/K7Pa2PbEvzY)
 - [Youtube Video Update](https://youtu.be/Nor549tiOT4)
 ### Build flags for gcc
