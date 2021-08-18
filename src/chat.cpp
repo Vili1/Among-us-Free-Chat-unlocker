@@ -4,230 +4,154 @@
 #include <tchar.h> 
 #include <vector>
 
+/* Global Variables */
+HWND hGameWindow;
+DWORD pID;
+DWORD offsetGameToBaseAddress;
+HANDLE processHandle = NULL;
+DWORD baseAddress;
+
+bool Steam;
+int vSelect = 0;
+int chatValue = 1;
 
 DWORD dwGetModuleBaseAddress(TCHAR* lpszModuleName, DWORD pID)
 {
-    DWORD dwModuleBaseAddress = 0;
-    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pID);
-    MODULEENTRY32 ModuleEntry32 = { 0 };
-    ModuleEntry32.dwSize = sizeof(MODULEENTRY32);
+   DWORD dwModuleBaseAddress = 0;
+   HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pID);
+   MODULEENTRY32 ModuleEntry32 = { 0 };
+   ModuleEntry32.dwSize = sizeof(MODULEENTRY32);
 
-    if (Module32First(hSnapshot, &ModuleEntry32))
-    {
-        do
-        {
-            if (_tcscmp(ModuleEntry32.szModule, lpszModuleName) == 0)
-            {
-                dwModuleBaseAddress = (DWORD)ModuleEntry32.modBaseAddr;
-                break;
-            }
-        } while (Module32Next(hSnapshot, &ModuleEntry32));
+   if (Module32First(hSnapshot, &ModuleEntry32))
+   {
+     do
+     {
+         if (_tcscmp(ModuleEntry32.szModule, lpszModuleName) == 0)
+         {
+            dwModuleBaseAddress = (DWORD)ModuleEntry32.modBaseAddr;
+            break;
+         }
+     } while (Module32Next(hSnapshot, &ModuleEntry32));
 
-    }
-    CloseHandle(hSnapshot);
-    return dwModuleBaseAddress;
+   }
+   CloseHandle(hSnapshot);
+   return dwModuleBaseAddress;
 }
 
+void reloadFunk()
+{
+   std::cout << "---------------------------------------------------------------------------\n";
+   for (int i = 5; i > 0; i--)
+   {
+      if (i == 1)
+      {
+         std::cout << "Auto reloading in " << i << " second\n";
+         Sleep(1000);
+      }
+      else 
+      {
+         std::cout << "Auto reloading in " << i << " seconds\n";
+         Sleep(1000);
+      }
+   }
+}
 
 int main()
 {
-    reload:
-    system("CLS");
-    HWND hGameWindow = FindWindow(NULL, "Among Us");
-    int vSelect = 0;
-    if (hGameWindow != NULL)
-    {
-        std::cout << "Among Us found successfully!" << std::endl;
-        std::cout << "---------------------------------------------------------------------------" << std::endl;
-        std::cout << "Please select the version of your game and then press Enter!" << std::endl;
-        std::cout << "1 - Steam - v2021.6.30s" << std::endl;
-        std::cout << "2 - Epic Games - v2021.7.20e" << std::endl;
-        std::cin >> vSelect;
+   reload:
+   system("CLS");
+   hGameWindow = FindWindow(NULL, "Among Us");
+   if (hGameWindow != NULL)
+   {
+     std::cout << "Among Us found successfully!\n";
+     std::cout << "---------------------------------------------------------------------------\n";
+     std::cout << "Please select the version of your game and then press Enter!\n";
+     std::cout << "1 - Steam - v2021.6.30s\n";
+     std::cout << "2 - Epic Games - v2021.7.20e\n";
+     std::cin >> vSelect;
 
-       if (vSelect <= 0)
-        {
-           goto reload; 
-        }
-        else if (vSelect > 2)
-        {
-           goto reload; 
-        }
-        else if (vSelect == 1)
-        {
-           goto Steam; 
-        }
-        else if (vSelect == 2)
-        {
-           goto EpicGames; 
-        }
-        
-    }
-    else
-    {
-        std::cout << "Unable to find Among Us, Please open Among Us!" << std::endl;
-        std::cout << "---------------------------------------------------------------------------" << std::endl;
-        std::cout << "Auto reloading in 5 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 4 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 3 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 2 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 1 second!" << std::endl;
-        Sleep(1000);
-        goto reload;
-    }
+      switch (vSelect)
+      {
+         case 1: //if vSelect == 1
+         Steam = true;
+         break;
+         case 2:
+         Steam = false;
+         break;
+         default: //if it doesn't fit anything above
+         goto reload;
+         break;
+      }
+   }
+   else
+   {
+      std::cout << "Unable to find Among Us, Please open Among Us!\n";
+      reloadFunk();
+      goto reload;
+   }
+ 
+   while(true)
+   {
+      Steam:
+      system("CLS");
+      hGameWindow = FindWindow(NULL, "Among Us");
+      if (hGameWindow != NULL)
+      {
+         std::cout << "Among Us found successfully!\n";
+         std::cout << "---------------------------------------------------------------------------\n";
+      }
+      else
+      {
+         reloadFunk();
+         goto reload;
+      }
 
-    while(true)
-    {
-     Steam:
-     system("CLS");
-     HWND hGameWindow = FindWindow(NULL, "Among Us");
-     int vSelect = 0;
-     if (hGameWindow != NULL)
-     {
-        std::cout << "Among Us found successfully!" << std::endl;
-        std::cout << "---------------------------------------------------------------------------" << std::endl;
-     }
-     else
-     {
-        std::cout << "Unable to find Among Us, Please open Among Us!" << std::endl;
-        std::cout << "---------------------------------------------------------------------------" << std::endl;
-        std::cout << "Auto reloading in 5 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 4 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 3 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 2 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 1 second!" << std::endl;
-        Sleep(1000);
-        goto reload;
-     }
+      GetWindowThreadProcessId(hGameWindow, &pID);
+      processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pID);
+      if (processHandle == INVALID_HANDLE_VALUE || processHandle == NULL)
+      {
+         std::cout << "Failed to open process! Try to run the application as administrator.\n";
+         reloadFunk();
+         goto reload;
+      }
 
-     DWORD pID;
-     GetWindowThreadProcessId(hGameWindow, &pID);
-     HANDLE processHandle = NULL;
-     processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pID);
-     if (processHandle == INVALID_HANDLE_VALUE || processHandle == NULL)
-     {
-        std::cout << "Failed to open process!" << std::endl;
-        system("pause");
-        return 0;
-     }
+      char moduleName[] = "GameAssembly.dll";
+      if (Steam)
+      {
+         offsetGameToBaseAddress = 0x01BB2D8C; //steam
+      }
+      else
+      {
+        offsetGameToBaseAddress = 0x01C71C08; // epic games
+      }
+      DWORD gameBaseAddress = dwGetModuleBaseAddress(_T(moduleName), pID);
+      std::vector<DWORD> pointsOffsets{0x5C,0x2C};
 
-     char moduleName[] = "GameAssembly.dll";
-     DWORD gameBaseAddress = dwGetModuleBaseAddress(_T(moduleName), pID);
-     DWORD offsetGameToBaseAddress = 0x01BB2D8C;
-     std::vector<DWORD> pointsOffsets{0x5C,0x2C};
-     DWORD baseAddress;
+      ReadProcessMemory(processHandle, (LPVOID)(gameBaseAddress + offsetGameToBaseAddress), &baseAddress, sizeof(baseAddress), NULL);
+      //std::cout << "Debugginfo: Baseaddress = " << std::hex << baseAddress << std::endl;
+      DWORD pointsAddress = baseAddress;
+      for (int i = 0; i < pointsOffsets.size() - 1; i++)
+      {
+         ReadProcessMemory(processHandle, (LPVOID)(pointsAddress + pointsOffsets.at(i)), &pointsAddress, sizeof(pointsAddress), NULL);
+         //std::cout << "Debugginfo: address at offset = " << std::hex << pointsAddress << std::endl;
+      }
+      pointsAddress += pointsOffsets.at(pointsOffsets.size() - 1);
+      //std::cout << "Debugginfo: address at final offset = " << std::hex << pointsAddress << std::endl;
+      //std::cout << "---------------------------------------------------------------------------\n";
 
-     ReadProcessMemory(processHandle, (LPVOID)(gameBaseAddress + offsetGameToBaseAddress), &baseAddress, sizeof(baseAddress), NULL);
-     //std::cout << "Debugginfo: Baseaddress = " << std::hex << baseAddress << std::endl;
-     DWORD pointsAddress = baseAddress;
-     for (int i = 0; i < pointsOffsets.size() - 1; i++)
-     {
-        ReadProcessMemory(processHandle, (LPVOID)(pointsAddress + pointsOffsets.at(i)), &pointsAddress, sizeof(pointsAddress), NULL);
-        //std::cout << "Debugginfo: address at offset = " << std::hex << pointsAddress << std::endl;
-     }
-     pointsAddress += pointsOffsets.at(pointsOffsets.size() - 1);
-     //std::cout << "Debugginfo: address at final offset = " << std::hex << pointsAddress << std::endl;
-     //std::cout << "---------------------------------------------------------------------------" << std::endl;
+      //"UI"
+      std::cout << "Free Chat Unlocker by Vili\n";
+      std::cout << "---------------------------------------------------------------------------\n";
+      std::cout << "If the Program doesn't work Press Delete to reload it!\n";
+      if (GetAsyncKeyState(VK_DELETE))
+      {
+         goto reload;
+      }
 
-     //"UI"
-     std::cout << "Free Chat Unlocker by Vili For Steam" << std::endl;
-     std::cout << "---------------------------------------------------------------------------" << std::endl;
-     std::cout << "If the Program doesn't work Press Delete to reload it!" << std::endl;
-     if (GetAsyncKeyState(VK_DELETE))
-     {
-       goto reload;
-     }
-
-     int chatValue = 1;
-
-     //memory write 
-     WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &chatValue, sizeof(int), 0);
-     CloseHandle(processHandle);
-     Sleep(1000);
-     goto Steam;
-    }
-
-
-    while(true)
-    {
-     EpicGames:
-     system("CLS");
-     HWND hGameWindow = FindWindow(NULL, "Among Us");
-     int vSelect = 0;
-     if (hGameWindow != NULL)
-     {
-        std::cout << "Among Us found successfully!" << std::endl;
-        std::cout << "---------------------------------------------------------------------------" << std::endl;
-
-     }
-     else
-     {
-        std::cout << "Unable to find Among Us, Please open Among Us!" << std::endl;
-        std::cout << "---------------------------------------------------------------------------" << std::endl;
-        std::cout << "Auto reloading in 5 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 4 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 3 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 2 seconds!" << std::endl;
-        Sleep(1000);
-        std::cout << "Auto reloading in 1 second!" << std::endl;
-        Sleep(1000);
-        goto reload;
-     }
-
-     DWORD pID;
-     GetWindowThreadProcessId(hGameWindow, &pID);
-     HANDLE processHandle = NULL;
-     processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pID);
-     if (processHandle == INVALID_HANDLE_VALUE || processHandle == NULL)
-     {
-        std::cout << "Failed to open process!" << std::endl;
-        system("pause");
-        return 0;
-     }
-
-     char moduleName[] = "GameAssembly.dll";
-     DWORD gameBaseAddress = dwGetModuleBaseAddress(_T(moduleName), pID);
-     DWORD offsetGameToBaseAddress = 0x01C71C08;
-     std::vector<DWORD> pointsOffsets{0x5C,0x2C};
-     DWORD baseAddress;
-
-     ReadProcessMemory(processHandle, (LPVOID)(gameBaseAddress + offsetGameToBaseAddress), &baseAddress, sizeof(baseAddress), NULL);
-     //std::cout << "Debugginfo: Baseaddress = " << std::hex << baseAddress << std::endl;
-     DWORD pointsAddress = baseAddress;
-     for (int i = 0; i < pointsOffsets.size() - 1; i++)
-     {
-        ReadProcessMemory(processHandle, (LPVOID)(pointsAddress + pointsOffsets.at(i)), &pointsAddress, sizeof(pointsAddress), NULL);
-        //std::cout << "Debugginfo: address at offset = " << std::hex << pointsAddress << std::endl;
-     }
-     pointsAddress += pointsOffsets.at(pointsOffsets.size() - 1);
-     //std::cout << "Debugginfo: address at final offset = " << std::hex << pointsAddress << std::endl;
-     //std::cout << "---------------------------------------------------------------------------" << std::endl;
-
-     //"UI"
-     std::cout << "Free Chat Unlocker by Vili For Epic Games" << std::endl;
-     std::cout << "---------------------------------------------------------------------------" << std::endl;
-     std::cout << "If the Program doesn't work Press Delete to reload it!" << std::endl;
-     if (GetAsyncKeyState(VK_DELETE))
-     {
-       goto reload;
-     }
-
-     int chatValue = 1;
-
-     //memory write 
-     WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &chatValue, sizeof(int), 0);
-     CloseHandle(processHandle);
-     Sleep(1000);
-     goto EpicGames;      
-    }
+      //memory write 
+      WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &chatValue, sizeof(int), 0);
+      CloseHandle(processHandle);
+      Sleep(1000);
+      goto Steam;
+   }
 }
