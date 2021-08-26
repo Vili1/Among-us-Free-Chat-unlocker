@@ -7,6 +7,9 @@ Among us external chat unlocker written in c++
 - [How to compile from source Video](https://youtu.be/Xg9KLTM688c)
 - [Youtube Video](https://youtu.be/K7Pa2PbEvzY)
 - [Youtube Video Update](https://youtu.be/Nor549tiOT4)
+
+# ONLY FOR OLD SRC!
+
 ### Build flags for gcc
 ```bash 
 -O2 -s -static-libstdc++ -static-libgcc
