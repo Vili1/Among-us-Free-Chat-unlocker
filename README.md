@@ -1,6 +1,6 @@
 # Among us external chat unlocker
 Among us external chat unlocker written in c++
-
+- [**Discord server**](https://discord.gg/qx4NpVvrDF).
 - [Donate on paypal](https://www.paypal.com/donate?hosted_button_id=PTRYHABP7FHGN)
 - [Support me on patreon :v](https://www.patreon.com/Vili69)
 - [Download](https://github.com/Vili1/Among-us-Free-Chat-unlocker/releases/)
