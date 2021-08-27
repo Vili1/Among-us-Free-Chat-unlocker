@@ -33,10 +33,12 @@ int main()
 	//PatternScan
 	void* chatAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x8b\x40\x00\xc3\xcc\xcc\x80\x3d", "xx?xxxxx");
 
-	//Nop the instructions
+	//patch the instruction
 	if (chatAddr != nullptr)
 	{
-		NopEx(hProcess, chatAddr, 3);
+		// patches the instruction offset by 4 bytes before the actual chat value
+		byte patchArray[3] = { 0x8b, 0x40, 0x28 };
+		PatchEx(hProcess, chatAddr, patchArray, sizeof(patchArray));
 		std::cout << "The chat has been unlocked successfully!\n";
 		std::cout << "---------------------------------------------------------------------------\n";
 		system("pause");
