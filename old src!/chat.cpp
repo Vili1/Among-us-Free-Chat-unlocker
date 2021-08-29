@@ -101,6 +101,7 @@ int main()
       }
       else
       {
+         std::cout << "Unable to find Among Us, Please open Among Us!\n";
          reloadFunk();
          goto reload;
       }
