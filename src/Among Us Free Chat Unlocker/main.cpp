@@ -36,10 +36,11 @@ int main()
 	//patch the instruction
 	if (chatAddr != nullptr)
 	{
-		// patches the instruction offset by 4 bytes before the actual chat value
+		// patches the instruction offset by 4 bytes before the actual chat value which is the VSync button
 		byte patchArray[3] = { 0x8b, 0x40, 0x28 };
 		PatchEx(hProcess, chatAddr, patchArray, sizeof(patchArray));
 		std::cout << "The chat has been unlocked successfully!\n";
+		std::cout << "Make sure that VSync is ON!\n";
 		std::cout << "---------------------------------------------------------------------------\n";
 		system("pause");
 	}
