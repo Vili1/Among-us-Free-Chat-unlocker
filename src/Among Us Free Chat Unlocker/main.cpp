@@ -31,16 +31,15 @@ int main()
 	}
 
 	//PatternScan
-	void* chatAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x8b\x40\x00\xc3\xcc\xcc\x80\x3d", "xx?xxxxx");
+	void* chatAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x83\x78\x2C\x00\x75\x2E", "xxx?xx");
 
 	//patch the instruction
 	if (chatAddr != nullptr)
 	{
-		// patches the instruction offset by 4 bytes before the actual chat value which is the VSync button
-		byte patchArray[3] = { 0x8b, 0x40, 0x28 };
+		// patches the instruction that compares the chat mode to compare to 2 which is the restricted chat
+		byte patchArray[4] = { 0x83, 0x78, 0x2C, 0x02 };
 		PatchEx(hProcess, chatAddr, patchArray, sizeof(patchArray));
 		std::cout << "The chat has been unlocked successfully!\n";
-		std::cout << "Make sure that VSync is ON!\n";
 		std::cout << "---------------------------------------------------------------------------\n";
 		system("pause");
 	}
