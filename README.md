@@ -1,9 +1,13 @@
 # Among us external chat unlocker
 Among us external chat unlocker written in c++
 # [Discord Server](https://discord.gg/QfVKWCeRtN)
-- [Donate on paypal](https://www.paypal.com/donate?hosted_button_id=PTRYHABP7FHGN)
+# [Donate on paypal](https://www.paypal.com/donate?hosted_button_id=PTRYHABP7FHGN)
+# [Download the unlocker](https://github.com/Vili1/Among-us-Free-Chat-unlocker/releases/)
+### Microsoft Visual C++ Redistributable
+```bash 
+[Download and install before trying to run the unlocker](https://aka.ms/vs/17/release/vc_redist.x86.exe)
+```
 - [Support me on patreon :v](https://www.patreon.com/Vili69)
-- [Download](https://github.com/Vili1/Among-us-Free-Chat-unlocker/releases/)
 - [How to compile from source Video](https://youtu.be/Xg9KLTM688c)
 - [Youtube Video](https://youtu.be/K7Pa2PbEvzY)
 - [Youtube Video Update](https://youtu.be/Nor549tiOT4)
