@@ -43,9 +43,11 @@ int main()
 		byte patchOnline[3] = { 0x89, 0x41, 0x38 };
 		PatchEx(hProcess, onlineAddr, patchOnline, sizeof(patchOnline));
 		std::cout << "The name changer has been unlocked successfully!\n";
-		std::cout << "Please sing in and then change your name!\n";
+		std::cout << "Please sing in and then change your name afterwards press enter once again!\n";
 		std::cout << "---------------------------------------------------------------------------\n";
-
+		system("pause");
+		byte restoreOnline[3] = { 0x89, 0x41, 0x2C };
+		PatchEx(hProcess, onlineAddr, restoreOnline, sizeof(restoreOnline));
 	}
 
 	//PatternScan for the chat compare opcode 
