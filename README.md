@@ -8,7 +8,7 @@ Among us external chat unlocker written in c++
 - [How to compile from source Video](https://youtu.be/Xg9KLTM688c)
 - [Youtube Video](https://youtu.be/K7Pa2PbEvzY)
 - [Youtube Video Update](https://youtu.be/Nor549tiOT4)
-- [Youtube Video Update 2](https://youtu.be/ODU-koX5J7U)
+- [Youtube Video Update 2](https://youtu.be/D5zzvgSodSs)
 
 ![image](https://user-images.githubusercontent.com/42891941/131033514-437fabc7-0960-480e-8677-13ab16c450c9.png)
 
