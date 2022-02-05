@@ -17,7 +17,6 @@ int main()
 	{
 		std::cout << "Please make sure that Among Us is running!\n";
 		std::cout << "---------------------------------------------------------------------------\n";
-		system("pause");
 		return  0;
 	}
 	//Get handle by OpenProcess
@@ -30,24 +29,34 @@ int main()
 		return  0;
 	}
 
-	std::cout << "Make sure that you are in offline mode before you press enter!\n";
-	std::cout << "---------------------------------------------------------------------------\n";
-	system("pause");
-	//PatternScan for the opcode that writes 2 to the chat value if its set to quick chat
-	void* onlineAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x89\x41\x2C\xC7\x45\x0C\x00\x00\x00\x00\xC7", "xxxxxxxxxxx");
-
-	//patch the instruction
-	if (onlineAddr != nullptr)
+	void* petAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x2C\x00\x74\x04\xB0\x01\x5D", "xxxxxxx");
+	if (petAddr != nullptr)
 	{
-		// patches the instruction to write 2 in the play as guest value which tricks the game to let you change your name
-		byte patchOnline[3] = { 0x89, 0x41, 0x38 };
-		PatchEx(hProcess, onlineAddr, patchOnline, sizeof(patchOnline));
-		std::cout << "The name changer has been unlocked successfully!\n";
-		std::cout << "Please press on play as guest and then change your name afterwards press enter once again!\n";
-		std::cout << "---------------------------------------------------------------------------\n";
-		system("pause");
-		byte restoreOnline[3] = { 0x89, 0x41, 0x2C };
-		PatchEx(hProcess, onlineAddr, restoreOnline, sizeof(restoreOnline));
+		NopEx(hProcess, petAddr, 2);
+	}
+
+	void* hatAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x50\x00\x74\x04\xB0\x01\x5D", "xxxxxxx");
+	if (hatAddr != nullptr)
+	{
+		NopEx(hProcess, hatAddr, 2);
+	}
+
+	void* skinAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x00\x00\x00\x00\x74\x04\xB0\x01\x5D", "xxxxxxxxx");
+	if (skinAddr != nullptr)
+	{
+		NopEx(hProcess, skinAddr, 2);
+	}
+
+	void* visiorAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x40\x00\x74\x04\xB0\x01\x5D\xC3\x56", "xxxxxxxxx");
+	if (visiorAddr != nullptr)
+	{
+		NopEx(hProcess, visiorAddr, 2);
+	}
+
+	void* namepAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x30\x00\x74\x04\xB0\x01\x5D", "xxxxxxx");
+	if (namepAddr != nullptr)
+	{
+		NopEx(hProcess, namepAddr, 2);
 	}
 
 	//PatternScan for the chat compare opcode 
