@@ -68,7 +68,7 @@ int main()
 		// patches the instruction that compares the chat mode to compare to 2 which is the restricted chat
 		byte patchChat[4] = { 0x83, 0x78, 0x2C, 0x02 };
 		PatchEx(hProcess, chatAddr, patchChat, sizeof(patchChat));
-		std::cout << "The chat has been unlocked successfully!\n";
+		std::cout << "The chat and the cosmetics has been unlocked successfully!\n";
 		std::cout << "---------------------------------------------------------------------------\n";
 		system("pause");
 	}
