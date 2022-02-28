@@ -1,6 +1,5 @@
 # Among us external chat unlocker
 Among us external chat unlocker written in c++
-Credit to [HackerHansen](https://github.com/HackerHansen/AmongUsCosmetics) for the cosmetic unlocker
 # [Discord Server](https://discord.gg/QfVKWCeRtN)
 # [Donate on paypal](https://www.paypal.com/donate?hosted_button_id=PTRYHABP7FHGN)
 # [Download and install Microsoft Visual C++ Redistributable before trying to run the unlocker](https://aka.ms/vs/17/release/vc_redist.x86.exe)
