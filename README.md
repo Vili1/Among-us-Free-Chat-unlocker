@@ -9,6 +9,7 @@ Among us external chat unlocker written in c++
 - [Youtube Video](https://youtu.be/K7Pa2PbEvzY)
 - [Youtube Video Update](https://youtu.be/Nor549tiOT4)
 - [Youtube Video Update 2](https://youtu.be/D5zzvgSodSs)
+- [Youtube Video Ptching the dll for unlocking the chat permanently](https://youtu.be/QE4fTyQG2BM)
 
 ![image](https://user-images.githubusercontent.com/42891941/131033514-437fabc7-0960-480e-8677-13ab16c450c9.png)
 
