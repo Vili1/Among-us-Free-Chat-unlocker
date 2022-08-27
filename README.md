@@ -1,3 +1,4 @@
+# THIS IS OUTDATED!
 # Among us external chat unlocker
 Among us external chat unlocker written in c++
 # [Discord Server](https://discord.gg/QfVKWCeRtN)
