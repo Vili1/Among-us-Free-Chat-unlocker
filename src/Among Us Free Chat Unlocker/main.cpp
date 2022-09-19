@@ -31,29 +31,19 @@ int main()
 	}
 
 	//PatternScan for the chat compare opcode 
-	void* chatAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x83\x78\x30\x00\x75\x2E", "xxx?xx");
+	void* chatAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x83\xB8\xA0\x00\x00\x00\x00\x75\x31", "xxxxxx?xx");
 	
 	//patch the instruction
 	if (chatAddr != nullptr)
 	{
 		// patches the instruction that compares the chat mode to compare to 2 which is the restricted chat
-		byte patchChat[4] = { 0x83, 0x78, 0x30, 0x02 };
+		byte patchChat[7] = { 0x83, 0xB8, 0xA0, 0x00, 0x00, 0x00, 0x02 };
 		PatchEx(hProcess, chatAddr, patchChat, sizeof(patchChat));
 		std::cout << "The chat has been unlocked successfully!\n";
 		std::cout << "---------------------------------------------------------------------------\n";
 		system("pause");
 	}
-	else
-	{
-		std::cout << "Attempting to unlock an older version of Among Us below v2021.12.16!\n";
-		void* oldchatAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x83\x78\x2C\x00\x75\x2E", "xxx?xx");
 
-		byte oldpatchChat[4] = { 0x83, 0x78, 0x2C, 0x02 };
-		PatchEx(hProcess, oldchatAddr, oldpatchChat, sizeof(oldpatchChat));
-		std::cout << "The chat has been unlocked successfully!\n";
-		std::cout << "---------------------------------------------------------------------------\n";
-		system("pause");
-	}
 	
 	return  0;
 }
