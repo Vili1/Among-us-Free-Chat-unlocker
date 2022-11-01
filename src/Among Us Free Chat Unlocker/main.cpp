@@ -31,13 +31,14 @@ int main()
 	}
 
 	//PatternScan for the chat compare opcode 
-	void* chatAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x83\xB8\xA0\x00\x00\x00\x00\x75\x31", "xxxxxx?xx");
+	//currently that opcode isnt presesnt and its being handled with a jump instruction
+	void* chatAddr = PatternScanExModule(hProcess, L"Among Us.exe", L"GameAssembly.dll", "\x75\x0C\xC7\x41\x10\x01\x00\x00\x00", "xxxxxxxxx");
 	
 	//patch the instruction
 	if (chatAddr != nullptr)
 	{
-		// patches the instruction that compares the chat mode to compare to 2 which is the restricted chat
-		byte patchChat[7] = { 0x83, 0xB8, 0xA0, 0x00, 0x00, 0x00, 0x02 };
+		// patches a jump
+		byte patchChat[2] = {0x75, 0x00};
 		PatchEx(hProcess, chatAddr, patchChat, sizeof(patchChat));
 		std::cout << "The chat has been unlocked successfully!\n";
 		std::cout << "---------------------------------------------------------------------------\n";
